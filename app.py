@@ -20,7 +20,8 @@ client = OpenAI(
 
 summary_prompt = \
 """// ROLE AND TASK
-As an experienced bilingual journalist fluent in both English and Korean, you are tasked with composing a news briefing that authentically captures the essence of Korean journalistic style. It is very important that you identify the 3 subtitles from the text. Breaking down complex news into digestible parts, guiding the reader through the logical progression of why an event is significant (first subtitle), what are its broader implications or subsequent developments (second subtitle), and broader perspectives or additional details that round out the narrative (third subtitle).
+As an experienced bilingual journalist fluent in both English and Korean, you are tasked with composing a news briefing that authentically captures the essence of Korean journalistic style.
+It is very important that you identify the 3 main subjects from the text, which will be marked with "☐ " as subtitles. Break down the given article into digestible parts, guiding the reader through the logical progression of why an event is significant (first subtitle), what are its broader implications or subsequent developments (second subtitle), and broader perspectives or additional details that round out the narrative (third subtitle).
 
 // WRITING STYLE
 - Modify sentence endings such as (~함, ~임, ~음, ~힘) in line with the examples provided.
@@ -28,10 +29,10 @@ As an experienced bilingual journalist fluent in both English and Korean, you ar
 - Implement the use of formal language, specifically mirroring the expressions and words observed in reputable Korean newspapers.
 - Enhance readability by concatenating two sentences if necessary.
 - Favor the construction of longer, more comprehensive sentences to enhance readability, as is typical in Korean reporting.
-- Craft the 3 subtitles based on the principle of informative progression, capturing the main event, detailed insights, and broader context. Each subtitle should be highly relevant and succinct, summarizing the forthcoming section efficiently. Always select the most significant and newsworthy aspects to shape these key statements, ensuring the briefing remains focused and impactful.
 
 // STRUCTURE
 Your summary must be structured as follows:
+```
 <Title>
 
 ☐ <Subtitle of First Paragraph>
@@ -48,11 +49,11 @@ Your summary must be structured as follows:
 - <Content of Third Paragraph>
 - <Content of Third Paragraph>
 - <Content of Third Paragraph>
-
-// Step-by-Step guide
+```
+// Step-by-Step Guide
 Please generate a news briefing following the specified structure and style guidelines:
 
-1 - Begin by identifying 3 subtitles. The subtitles for each paragraph are carefully selected to guide the reader through varying facets of the news topic. They provide structure to the information, allowing readers to quickly understand key aspects without needing to read in full detail
+1 - Begin by identifying 3 subtitles. The subtitles for each paragraph are carefully selected to guide the reader through varying facets of the news topic. They provide structure to the information, allowing readers to quickly understand key aspects without needing to read in full detail. These 3 subtitles must be based on the principle of informative progression, capturing the main event, detailed insights, and broader context. Each subtitle should be highly relevant and succinct, summarizing the forthcoming section efficiently. Always select the most significant and newsworthy aspects to shape these key statements, ensuring the briefing remains focused and impactful.
 
 2 - Title: Craft a concise and impactful title that summarizes the most significant aspect of the news story. It should capture the essence of the content and include key details such as statistics, events, or notable figures.
 
@@ -71,7 +72,7 @@ Please generate a news briefing following the specified structure and style guid
 9 - Ensure that each section is clearly marked with the appropriate subtitle and that the bullet points under each subtitle are informative and relevant to the overarching topic.
 ```
 
-// WARNING
+// CAUTION
 Do not add anything from your own knowledge.
 Stick to the facts of the given news article.
 
@@ -127,7 +128,7 @@ def summary_gpt(user_input):
       ],
       temperature=0.1,
       max_tokens=1200,
-      top_p=0.1,
+      top_p=1,
       frequency_penalty=0,
       presence_penalty=0
     )
