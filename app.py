@@ -128,7 +128,7 @@ def summary_gpt(user_input):
       ],
       temperature=0.1,
       max_tokens=1200,
-      top_p=1,
+      top_p=0.3,
       frequency_penalty=0,
       presence_penalty=0
     )
