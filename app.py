@@ -216,14 +216,8 @@ with tab1:
                     with col2:
                         st.header(':printer: 결과')
                         st.divider()
-                        st.subheader(':black_nib: GPT 영어 요약본')
+                        st.subheader(':black_nib: GPT 요약본')
                         st.markdown(past_results['result_1'])
-                        
-                        st.subheader(':abc:번역본')
-                        st.markdown(past_results['result_2'])
-                        
-                        st.subheader(':mag_right: 고유명사 검색 결과')
-                        st.markdown(past_results['result_3'])
 
     
     #
