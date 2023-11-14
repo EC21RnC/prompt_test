@@ -112,9 +112,9 @@ def summary_gpt(user_input):
           "content": user_input
         }
       ],
-      temperature=0.3,
+      temperature=0.1,
       max_tokens=1200,
-      top_p=1,
+      top_p=0.1,
       frequency_penalty=0,
       presence_penalty=0
     )
