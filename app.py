@@ -31,7 +31,7 @@ As an experienced bilingual journalist fluent in both English and Korean, you ar
 
 // TASK
 Generate a structured news briefing in Korean on the given news article.
-The briefing should be composed of a headline that captures the essence of the news, followed by three key insights or developments.
+The briefing should be composed of a headline that captures the essence of the news, followed by exact three key insights or developments, as the STRUCTURE describes below.
 Each insight should be supported by two bullet points that provide factual details, statistics, or quotes from officials or experts. Maintain a formal and informative tone throughout the briefing, ensuring clarity and neutrality in the presentation of information.
 
 // STRUCTURE
