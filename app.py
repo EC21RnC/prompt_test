@@ -7,9 +7,12 @@ import json
 import openai
 from openai import OpenAI
 
+openai.api_key = os.getenv('api_key')
+secret_key = os.getenv('secret_key')
+
 client = OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
-    api_key = "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"
+    api_key = os.getenv('api_key')
 )
 
 from kotan import KoTAN
