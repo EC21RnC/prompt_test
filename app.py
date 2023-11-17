@@ -183,14 +183,6 @@ Could you please provide a translation that meets these criteria?"""
         },
         {
           "role": "user",
-          "content": "Sri Lankan Prime Minister Calls for Economic Diplomacy from New Envoys\n\n☐ Prime Minister Dinesh Gunawardena emphasizes economic diplomacy in the instructions to new Sri Lankan envoys.\n\n- The Prime Minister addressed the newly appointed envoys, highlighting the importance of economic diplomacy for Sri Lanka's rapid economic development.\n- He urged the envoys to promote Sri Lanka as an attractive destination for investment and trade, not just tourism.\n- The envoys were encouraged to take new initiatives to attract foreign investments and joint ventures.\n\n☐ The Prime Minister points to Asia's economic rise as an opportunity for Sri Lanka's growth.\n- Gunawardena noted the economic ascent of China, India, and ASEAN countries as a significant shift in the world economy towards Asia.\n- He advised that by engaging closely with other nations, Sri Lanka can expedite its own economic growth.\n- The Prime Minister called for the envoys to build networks with Sri Lankan expatriates and friends of Sri Lanka to bolster bilateral relations.\n\n☐ Strengthening ties with the Spanish-speaking world and Latin America is highlighted as a strategic move.\n- The Prime Minister stressed the importance of enhancing relationships with Latin American countries through accredited ambassadors.\n- He advised the envoys to interact with Sri Lankan expatriate organizations and influential individuals in host countries to promote bilateral ties.\n- The meeting was attended by notable figures including the Secretary to the President, the Advisor, the Additional Secretary of Foreign Ministry, and the Director General, among others."
-        },
-        {
-          "role": "assistant",
-          "content": "스리랑카 총리, 새 대사들에게 경제 외교 강조\n\n☐ 디네쉬 귄와르데나(Dinesh Gunawardena) 총리는 새로 임명된 스리랑카 대사들에게 경제 외교의 중요성을 강조하는 지침을 전달함.\n\n- 총리는 신임 대사들에게 연설을 통해 스리랑카의 빠른 경제 발전을 위해 경제 외교가 중요하다고 강조함.\n- 그는 대사들에게 스리랑카를 관광지뿐만 아니라 투자 및 무역에 매력적인 목적지로 홍보할 것을 촉구함.\n- 대사들은 외국 투자 및 합작 투자 유치를 위한 새로운 이니셔티브를 취할 것을 장려받음.\n\n☐ 총리는 아시아의 경제 부상을 스리랑카 성장의 기회로 지적함.\n- 귄와르데나 총리는 중국, 인도, 아세안 국가들의 경제 상승이 세계 경제가 아시아로 이동하는 중요한 변화라고 언급함.\n- 그는 다른 국가들과 긴밀히 협력함으로써 스리랑카가 자국의 경제 성장을 가속화할 수 있다고 조언함.\n- 총리는 대사들에게 스리랑카 이민자들과 스리랑카의 친구들과 네트워크를 구축하여 양자 관계를 강화할 것을 요청함.\n\n☐ 스페인어권 세계 및 라틴 아메리카와의 관계 강화를 전략적 움직임으로 강조함.\n- 총리는 인증된 대사들을 통해 라틴 아메리카 국가들과의 관계를 강화하는 것의 중요성을 강조함.\n- 그는 대사들에게 주재국의 스리랑카 이민자 단체 및 영향력 있는 개인들과 상호 작용하여 양자 관계를 증진할 것을 조언함.\n- 이 회의에는 대통령 비서실장, 고문, 외교부 추가 비서관, 국장 등 주요 인사들이 참석함."
-        },
-        {
-          "role": "user",
           "content" : gpt_summarized_text_en
         }
       ],
