@@ -351,8 +351,6 @@ if "display" not in st.session_state:
 #
 # Libs & Funcs -------------------------------------------------------------------------------------------------------------------------- #
 
-
-
 # Page Structure -------------------------------------------------------------------------------------------------------------------------- #
 #
 
@@ -437,9 +435,6 @@ with tab1:
                         st.subheader(':black_nib: GPT 작성본')
                         st.markdown(past_results['gpt_proofread_text_ko'])
                         st.divider()
-                        st.subheader(':abc: GPT 영어 요약본')
-                        st.markdown(past_results['gpt_summarized_text_en'])
-                        st.divider()
                         st.subheader(':mag_right: 고유명사 검색 결과')
                         st.dataframe(past_results['gpt_pronouns'],
                                      column_config={'이머릭스' : st.column_config.LinkColumn('이머릭스 링크'),
@@ -447,6 +442,10 @@ with tab1:
                                      '구글' : st.column_config.LinkColumn('구글 링크')
                                      }
                                      )
+                        st.divider()
+                        st.subheader(':abc: GPT 영어 요약본')
+                        st.markdown(past_results['gpt_summarized_text_en'])
+
 
     
     #
@@ -482,12 +481,9 @@ with tab1:
                                 with col2:
                                     st.header(':printer: 결과')
                                     st.divider()
-                                    st.subheader(':black_nib: GPT 영어 요약본')
-                                    st.markdown(gpt_summarized_text_en)
-                                    
-                                    st.subheader(':abc:번역본')
+                                    st.subheader(':black_nib: GPT 작성본')
                                     st.markdown(gpt_proofread_text_ko)
-                                    
+                                    st.divider()
                                     st.subheader(':mag_right: 고유명사 검색 결과')
                                     st.dataframe(gpt_pronouns,
                                                  column_config={'이머릭스' : st.column_config.LinkColumn('이머릭스 링크'),
@@ -495,6 +491,13 @@ with tab1:
                                                  '구글' : st.column_config.LinkColumn('구글 링크')
                                                  }
                                                  )
+                                    st.divider()
+                                    st.subheader(':abc: GPT 영어 요약본')
+                                    st.markdown(gpt_summarized_text_en)
+                                    
+
+                                    
+
 
                             # Append results to display
                             st.session_state['display'].append({'user_input' : text,
@@ -554,18 +557,23 @@ with tab2:
                 with col2:
                     st.header(':printer: 결과')
                     st.divider()
-                    st.subheader(':black_nib: GPT 영어 요약본')
-                    st.markdown(result[1])
-                    
-                    st.subheader(':abc:번역본')
+                    st.subheader(':black_nib: GPT 작성본')
                     st.markdown(result[2])
-                    
+                    st.divider()
                     st.subheader(':mag_right: 고유명사 검색 결과')
                     st.dataframe(result[3],
                                  column_config={'이머릭스' : st.column_config.LinkColumn('이머릭스 링크'),
-                                                           '네이버' : st.column_config.LinkColumn('네이버 링크'),
-                                                           '구글' : st.column_config.LinkColumn('구글 링크')
-                                               })
+                                                '네이버' : st.column_config.LinkColumn('네이버 링크'),
+                                                '구글' : st.column_config.LinkColumn('구글 링크')
+                                                }
+                                                )
+                    st.divider()
+                    st.subheader(':abc: GPT 영어 요약본')
+                    st.markdown(result[1])
+                    
+
+                    
+
     else:
         st.write("No history yet.")
 
