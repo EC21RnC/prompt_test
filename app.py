@@ -448,7 +448,7 @@ with tab1:
         st.session_state['display'] = []
         if secret_key_user == secret_key:
                 if all(len(input_value.strip()) > 0 for input_value in input_values):
-                    with st.spinner('열심히 요약하고 있어요...'):
+                    with st.spinner('_열심히 요약하고 있어요... 서버 상황에 따라 1~2분정도 소요됩니다_'):
                         # Clear the previous results from the display before storing new ones
                         # Reset the display state
                         
