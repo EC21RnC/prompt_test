@@ -29,8 +29,6 @@ client = OpenAI(
 #                                             level="fine",
 #                                             style="formal")
 
-secret_key = "movefast"
-
 # --- #
 
 def summary_gpt(user_input):
