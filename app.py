@@ -18,16 +18,16 @@ client = OpenAI(
     api_key = os.getenv('api_key')
 )
 
-from kotan import KoTAN
+# from kotan import KoTAN
 
 # Check if 'translator' is not already set in session state
-if 'translator' not in st.session_state:
-    # If not, show a spinner and load the translator
-    with st.spinner('_작업에 필요한 구성요소들을 불러오고 있는 중입니다..._'):
-        st.session_state.translator = KoTAN(task="mt",
-                                            tgt="ko",
-                                            level="fine",
-                                            style="formal")
+# if 'translator' not in st.session_state:
+#     # If not, show a spinner and load the translator
+#     with st.spinner('_작업에 필요한 구성요소들을 불러오고 있는 중입니다..._'):
+#         st.session_state.translator = KoTAN(task="mt",
+#                                             tgt="ko",
+#                                             level="fine",
+#                                             style="formal")
 
 secret_key = "movefast"
 
@@ -145,15 +145,74 @@ def summary_gpt(user_input):
 
 # --- #
 
+# streamlit cloud 환경에서만 gpt로 대체
 def translate_nllb(gpt_summarized_text_en):
-    fin_text = []
-    for txt in gpt_summarized_text_en.split('\n'):
-        fin_text.append(st.session_state.translator.predict(txt.strip()))
-        
-    flattened_strings = [item for sublist in fin_text for item in (sublist if sublist else [""])]
-    resulting_string = '\n'.join(flattened_strings)
-    return resulting_string
+    translate_prompt = \
+    """I am working on a document that is intended for publication in a South Korean newspaper. As a professional English to Korean translator, your expertise is critical to ensuring that the translation not only accurately conveys the original text's meaning but also reads as if it were authored in Korean, with the natural flow and word choice reminiscent of a native Korean journalist. 
 
+To achieve this, please follow these instructions:
+
+1. Translate the English text into Korean, maintaining a natural and fluent tone throughout.
+2. Use vocabulary and expressions commonly found in Korean news articles to ensure the translation resonates with readers accustomed to that style.
+3. Focus on readability, ensuring that the Korean version is clear and easily understandable.
+4. Maintain a consistent writing style throughout the translation, mirroring the tone and level of formality used in reputable Korean newspapers.
+
+Could you please provide a translation that meets these criteria?"""
+    response = client.chat.completions.create(
+      model="gpt-4-1106-preview",
+      messages=[
+        {
+          "role": "system",
+          "content": translate_prompt
+        },
+        {
+          "role": "user",
+          "content": "Indonesia records 5.01% economic growth in Q1 2022\n\n☐ On May 9, Statistics Indonesia announced that the economy grew 5.01% in the first quarter of 2022.\n- Statistics Indonesia attributed the growth to a significant increase in international prices of key commodity exports, which helped offset the negative impact of the omicron variant outbreak in the community.\n- In February 2022, when the number of new COVID-19 cases in Indonesia peaked, the Indonesian government imposed movement restrictions, which led to a contraction in economic activity.\n\n☐ Looking at quarterly gross domestic product (GDP) growth, Indonesia's GDP grew by 1.06% quarter-on-quarter in Q3 2021, but reversed to 0.96% in Q4.\n- In the first quarter of 2022, private consumption growth was up 4.34% year-on-year.\n- The share of private consumption in Indonesia's economy is more than half of GDP.\n\n☐ Bank Indonesia slightly revised its 2022 growth forecast to 4.5-5.3% from 4.7-5.5%, as spillover effects from the war in Ukraine slow the global economic recovery.\n- The exchange rate of the rupiah to the U.S. dollar stabilized in Q1 2022, fluctuating between IDR 14,200 and IDR 14,400 (USD 1,240 and USD 1,260).\n- Indonesia's trade balance recorded a surplus of USD 9.3 billion (Rp 11,852.9 billion) in Q1 2022, up 20% year-on-year.\n- Andry Asmoro, chief economist at local commercial bank Bank Mandiri, predicts that Indonesia's GDP growth could reach 5.17% in 2022."
+        },
+        {
+          "role": "assistant",
+          "content": "인도네시아, 2022년 1/4분기 경제성장률 5.01% 기록\n\n☐ 5월 9일 인도네시아 통계청은 2022년 1/4분기 경제성장률이 5.01%를 기록했다고 발표함.\n- 인도네시아 통계청은 주요 원자재 수출 품목의 국제 시세가 크게 상승한 덕분에 지역사회에서의 오미크론(omicron) 변이 유행으로 인한 부정적 여파가 상쇄될 수 있었다고 설명함.\n- 2022년 2월 인도네시아 국내 코로나19 신규 확진자 수가 정점에 달하자 인도네시아 정부가 이동 제한 조치를 내린 탓에 경제 활동이 위축된 바 있음.\n\n☐ 분기별 국내총생산(GDP) 성장률을 살펴보면, 2021년 3/4분기 인도네시아의 GDP는 전 분기 대비 1.06% 성장했지만, 4/4분기에는 0.96% 역(-)성장을 기록함.\n- 2022년 1/4분기 민간소비 성장률은 전년 동기 대비 4.34% 증가한 것으로 나타남.\n- 인도네시아 경제에서 민간 소비가 차지하는 비중은 GDP 대비 절반 이상임.\n\n☐ 우크라이나 전쟁으로 인한 파급효과가 세계 경제 회복 속도를 둔화시키는 가운데, 인도네시아 중앙은행은 2022년 성장률 전망치를 4.7~5.5%에서 4.5~5.3%로 소폭 하향 조정함.\n- 2022년 1/4분기 달러당 루피화 환율은 1만 4,200~1만 4,400루피아(한화 약 1,240~1,260원) 사이에서 변동하는 등 안정세임.\n- 2022년 1/4분기 인도네시아 무역수지는 93억 달러(한화 약 11조 8,529억 원) 흑자를 기록했으며, 흑자 규모는 전년 동기 대비 20% 증가함.\n- 현지 시중은행 만디리 은행(Bank Mandiri)의 수석 이코노미스트인 안드리 아스모로(Andry Asmoro)는 2022년 인도네시아 GDP 성장률이 5.17%에 달할 수 있다고 전망함."
+        },
+        {
+          "role": "user",
+          "content": "Israeli Supreme Court puts Netanyahu's eligibility to serve as prime minister on hold\n\n☐ On January 2, Israel's Supreme Court ruled that it is \"premature\" to determine whether Prime Minister Benjamin Netanyahu is eligible to form the next government at this time, putting on hold a hearing on his eligibility to serve as prime minister\n- In its decision, the Supreme Court noted that the election period is a \"zone of uncertainty\" and that the need for a ruling will depend largely on which candidate comes out on top in the general election\n- In November 2019, Israeli prosecutors indicted Mr. Netanyahu on charges of bribery, fraud, and embezzlement\n\n☐ As a result of the ruling, Netanyahu's trial for his alleged crimes will be delayed until at least March 2020, when early elections will be held\n- Netanyahu's Likud party supported the ruling, stating that \"in a democracy, the people decide who their leaders are,\" while his rival Blue and White party said that \"Netanyahu should be ousted through an election, not a court ruling.\"\n- Some observers noted that the Israeli Supreme Court avoided a potential confrontation between the Israeli government and the judiciary with this decision\n\n☐ On January 1, Netanyahu asked the Knesset for immunity\n- In a televised address, Netanyahu explained that \"my request for immunity is in accordance with the law and serves the purpose of protecting you and the future of Israel.\"\n- Under Israeli law, Israeli lawmakers are not automatically granted immunity, but can request it if they are implicated"
+        },
+        {
+          "role": "assistant",
+          "content": "이스라엘 대법원, 네타냐후의 총리직 자격심사 보류\n\n☐ 1월 2일 이스라엘 대법원은 베냐민 네타냐후(Benjamin Netanyahu) 총리가 차기 정부를 구성할 자격이 있는지 판단하는 것이 현재로서는 ‘시기상조(premature)’라며 차기 총리직 자격 여부에 대한 심리를 보류한다고 판결함. \n- 대법원 측은 결정문을 통해 선거 기간은 ‘불확실성의 영역'이며, 판결의 필요성도 총선 결과에서 어떤 후보가 1위를 차지하느냐에 따라 크게 좌우될 것이라고 밝혔음. \n- 2019년 11월 이스라엘 검찰은 네타냐후 총리를 뇌물, 사기, 배임 등의 혐의로 기소하였음. \n\n☐ 이번 판결에 따라, 네타냐후 총리의 범죄 혐의를 둘러싼 재판은 적어도 조기 총선이 시행되는 2020년 3월 이후로 미뤄질 전망임. \n- 네타냐후 총리가 이끄는 리쿠르당은 \"민주주의에서는 국민들이 지도자를 결정하는 것이 옳다\"며 판결을 지지하였으며, 경쟁자인 청백당도 \"네타냐후 총리는 법원 판결이 아닌 선거를 통해 축출되어야 한다\"고 밝힘.\n- 일각에서는 이스라엘 대법원이 이번 결정을 통해 이스라엘 정부와 사법부 사이의 잠재적 대립을 피했다고 지적함. \n\n☐ 한편, 네타냐후 총리는 1월 1일 의회에 면책특권을 요청했음. \n- 네타냐후 총리는 TV 연설에서 \"면책특권 요청은 법에 따른 것이며, 여러분과 이스라엘의 미래를 받들려는 목적을 지닌다”고 설명하였음. \n- 이스라엘 법률에 따르면, 이스라엘 의원은 자동으로 면책특권을 받지 않지만, 연관성이 있을 경우 면책특권을 요청할 수 있음."
+        },
+        {
+          "role": "user",
+          "content": "Sri Lankan Prime Minister Calls for Economic Diplomacy from New Envoys\n\n☐ Prime Minister Dinesh Gunawardena emphasizes economic diplomacy in the instructions to new Sri Lankan envoys.\n\n- The Prime Minister addressed the newly appointed envoys, highlighting the importance of economic diplomacy for Sri Lanka's rapid economic development.\n- He urged the envoys to promote Sri Lanka as an attractive destination for investment and trade, not just tourism.\n- The envoys were encouraged to take new initiatives to attract foreign investments and joint ventures.\n\n☐ The Prime Minister points to Asia's economic rise as an opportunity for Sri Lanka's growth.\n- Gunawardena noted the economic ascent of China, India, and ASEAN countries as a significant shift in the world economy towards Asia.\n- He advised that by engaging closely with other nations, Sri Lanka can expedite its own economic growth.\n- The Prime Minister called for the envoys to build networks with Sri Lankan expatriates and friends of Sri Lanka to bolster bilateral relations.\n\n☐ Strengthening ties with the Spanish-speaking world and Latin America is highlighted as a strategic move.\n- The Prime Minister stressed the importance of enhancing relationships with Latin American countries through accredited ambassadors.\n- He advised the envoys to interact with Sri Lankan expatriate organizations and influential individuals in host countries to promote bilateral ties.\n- The meeting was attended by notable figures including the Secretary to the President, the Advisor, the Additional Secretary of Foreign Ministry, and the Director General, among others."
+        },
+        {
+          "role": "assistant",
+          "content": "스리랑카 총리, 새 대사들에게 경제 외교 강조\n\n☐ 디네쉬 귄와르데나(Dinesh Gunawardena) 총리는 새로 임명된 스리랑카 대사들에게 경제 외교의 중요성을 강조하는 지침을 전달함.\n\n- 총리는 신임 대사들에게 연설을 통해 스리랑카의 빠른 경제 발전을 위해 경제 외교가 중요하다고 강조함.\n- 그는 대사들에게 스리랑카를 관광지뿐만 아니라 투자 및 무역에 매력적인 목적지로 홍보할 것을 촉구함.\n- 대사들은 외국 투자 및 합작 투자 유치를 위한 새로운 이니셔티브를 취할 것을 장려받음.\n\n☐ 총리는 아시아의 경제 부상을 스리랑카 성장의 기회로 지적함.\n- 귄와르데나 총리는 중국, 인도, 아세안 국가들의 경제 상승이 세계 경제가 아시아로 이동하는 중요한 변화라고 언급함.\n- 그는 다른 국가들과 긴밀히 협력함으로써 스리랑카가 자국의 경제 성장을 가속화할 수 있다고 조언함.\n- 총리는 대사들에게 스리랑카 이민자들과 스리랑카의 친구들과 네트워크를 구축하여 양자 관계를 강화할 것을 요청함.\n\n☐ 스페인어권 세계 및 라틴 아메리카와의 관계 강화를 전략적 움직임으로 강조함.\n- 총리는 인증된 대사들을 통해 라틴 아메리카 국가들과의 관계를 강화하는 것의 중요성을 강조함.\n- 그는 대사들에게 주재국의 스리랑카 이민자 단체 및 영향력 있는 개인들과 상호 작용하여 양자 관계를 증진할 것을 조언함.\n- 이 회의에는 대통령 비서실장, 고문, 외교부 추가 비서관, 국장 등 주요 인사들이 참석함."
+        },
+        {
+          "role": "user",
+          "content" : gpt_summarized_text_en
+        }
+      ],
+      temperature=0.5,
+      max_tokens=1200,
+      top_p=1,
+      frequency_penalty=0,
+      presence_penalty=0
+    )
+
+    
+    return response.choices[0].message.content
+    # fin_text = []
+    # for txt in gpt_summarized_text_en.split('\n'):
+    #     fin_text.append(st.session_state.translator.predict(txt.strip()))
+        
+    # flattened_strings = [item for sublist in fin_text for item in (sublist if sublist else [""])]
+    # resulting_string = '\n'.join(flattened_strings)
+    # return resulting_string
+
+
+    
 # --- #
 
 def edit_gpt(gpt_summarized_text_en, nllb_translated_text_ko):
